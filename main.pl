@@ -134,9 +134,9 @@ projection_task :-
 	indigolog([SEQ, ?(COND)]).
 
 regression_task :-
-	format("Write goal situation:\n"),
-	read(COND), nl,
-	.
+    format("Write condition:\n"),
+    read(COND), nl,
+    indigolog(search([star(move_somewhere), ?(COND)])).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % EOF
