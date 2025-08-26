@@ -124,14 +124,17 @@ legality_task :-
 	read(SEQ), nl,
 	indigolog(SEQ).
 
-/* Projection Task (read from terminal the condition and the 
-   sequence of actions) */
+/* Projection_task: read a condition and a sequence of actions from command line, then
+verify if the fluent is true after the sequence of actions */
 projection_task :-
-	format("Choose condition to satisfy:\n"),
-	read(COND), nl,
-	format("Write sequence of actions:\n"),
-	read(SEQ), nl,
-	indigolog([SEQ, ?(COND)]).
+    format("Write condition (end with a dot):~n", []),
+    read(COND),
+    format("Write sequence of actions (end with a dot):~n", []),
+    read(SEQ),
+    (   eval(COND, SEQ, true)
+    ->  format("Condition ~w holds after executing ~w~n", [COND, SEQ])
+    ;   format("Condition ~w does NOT hold after executing ~w~n", [COND, SEQ])
+    ).
 
 regression_task :-
     format("Write condition:\n"),
